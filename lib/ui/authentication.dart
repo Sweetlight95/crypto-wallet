@@ -2,6 +2,8 @@ import 'package:crypto_app/net/flutterfire.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'homeview.dart';
+
 class Authentication extends StatefulWidget {
   const Authentication({Key? key}) : super(key: key);
 
@@ -21,34 +23,44 @@ class _AuthenticationState extends State<Authentication> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-           color: Colors.tealAccent
+           color: Colors.white70
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextFormField(
-              controller: _emailField,
-              decoration: InputDecoration(
-                hintText: "something@email.com",
-                hintStyle: TextStyle(color: Colors.orange),
-                labelText: "Email",
-                labelStyle: TextStyle(
-                  color: Colors.brown,
-                )
-              ),
-            ),
-            TextFormField(
-              controller: _passwordField,
-              obscureText: true,
-              decoration: InputDecoration(
-                  hintText: "password",
+            Container(
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: TextFormField(
+                style: TextStyle(color: Colors.orange),
+                controller: _emailField,
+                decoration: InputDecoration(
+                  hintText: "something@email.com",
                   hintStyle: TextStyle(color: Colors.orange),
-                  labelText: "Password",
+                  labelText: "Email",
                   labelStyle: TextStyle(
                     color: Colors.brown,
                   )
+                ),
               ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height /35,),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: TextFormField(
+                style: TextStyle(color: Colors.orange),
+                controller: _passwordField,
+                obscureText: true,
+                decoration: InputDecoration(
+                    hintText: "password",
+                    hintStyle: TextStyle(color: Colors.orange),
+                    labelText: "Password",
+                    labelStyle: TextStyle(
+                      color: Colors.brown,
+                    )
+                ),
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height /35,),
             Container(
               width: MediaQuery.of(context).size.width / 1.4,
               height: 40 ,
@@ -60,12 +72,16 @@ class _AuthenticationState extends State<Authentication> {
               onPressed: () async {
                 bool shouldNavigate = await register(_emailField.text, _passwordField.text);
                 if(shouldNavigate) {
-                  //Navigate
+                  Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeView(),),
+                  );
                 }
                 },
               child: Text("Register"),
             ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height /35,),
             Container(
               width: MediaQuery.of(context).size.width / 1.4,
               height: 40 ,
@@ -77,7 +93,10 @@ class _AuthenticationState extends State<Authentication> {
                 onPressed: () async {
                   bool shouldNavigate = await signIn(_emailField.text, _passwordField.text);
                   if(shouldNavigate) {
-                    //Navigate
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeView(),),
+                  );
                   }
                 },
                 child: Text("Login"),
